@@ -1,0 +1,78 @@
+---
+import Icon from "../Icon.astro";
+import { address, hours, phones, email, socials, vinMailto } from "../../data/site";
+---
+<section id="contacts" class="section contacts">
+  <div class="container grid contacts__grid">
+    <div class="contacts__main">
+      <h2>Контакти і самовивіз</h2>
+      <p class="contacts__addr">{address.city}, {address.street}</p>
+      <p class="contacts__entry">{address.entrance[0]!.toUpperCase() + address.entrance.slice(1)}</p>
+      <a class="link contacts__map" href={address.map} target="_blank" rel="noopener"><Icon name="pin" />Відкрити на мапі</a>
+      <p class="contacts__route small">Від метро Чернігівська — трамвай №22, 23, 28д, 33 до зупинки «Вулиця Юрія Гагаріна». Перед приїздом зателефонуйте.</p>
+
+      <div class="contacts__cols">
+        <div>
+          <h3 class="contacts__h">Графік</h3>
+          <dl class="contacts__hours">
+            {hours.map((h) => <div><dt>{h.days}</dt><dd>{h.time}</dd></div>)}
+          </dl>
+        </div>
+        <div>
+          <h3 class="contacts__h">Телефони</h3>
+          <ul class="contacts__phones">
+            {phones.map((p) => <li><a class="link tel" href={`tel:${p.tel}`}>{p.display}</a>{p.label && <span class="small"> {p.label.toLowerCase()}</span>}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3 class="contacts__h">Пошта і канали</h3>
+          <ul class="contacts__links">
+            <li><a class="link" href={`mailto:${email}`}>{email}</a></li>
+            {socials.map((s) => <li><a class="link" href={s.href} target="_blank" rel="noopener">{s.label}</a></li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <aside class="contacts__vin" aria-label="Запит по VIN">
+      <div class="contacts__ticks" aria-hidden="true">
+        {Array.from({ length: 17 }, () => <span></span>)}
+      </div>
+      <p class="contacts__vin-title">Не знаєте артикул? Надішліть 17 знаків VIN, а менеджер підбере деталь.</p>
+      <a class="btn btn--brand" href={vinMailto()} data-vin-send><Icon name="mail" />Надіслати VIN листом</a>
+      <p class="small contacts__vin-note">Відкриється ваша пошта з готовим листом на {email}.</p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .contacts__grid { row-gap: var(--s-5); }
+  .contacts__main, .contacts__vin { grid-column: 1 / -1; min-width: 0; }
+  .contacts__addr { margin-top: var(--s-4); font: var(--fw-semi) var(--fs-fact)/1.1 var(--font-display); overflow-wrap: break-word; }
+  .contacts__entry { margin-top: var(--s-1); color: var(--color-text-muted); }
+  .contacts__map { display: inline-flex; align-items: center; gap: var(--s-1); min-height: 44px; margin-top: var(--s-1); font-weight: var(--fw-semi); }
+  .contacts__map :global(.icon) { width: 20px; height: 20px; color: var(--color-accent); }
+  .contacts__route { margin-top: var(--s-1); color: var(--color-text-muted); max-width: 60ch; }
+  .contacts__cols { margin-top: var(--s-4); display: grid; gap: var(--s-4); }
+  .contacts__h { font: var(--fw-semi) var(--fs-small)/1.3 var(--font-body); color: var(--color-text-muted); padding-bottom: var(--s-1); margin-bottom: var(--s-1); border-bottom: 1px solid var(--color-line); }
+  .contacts__hours div { display: flex; justify-content: space-between; gap: var(--s-2); padding-block: 4px; }
+  .contacts__hours dd { font-variant-numeric: tabular-nums; }
+  .contacts__phones li, .contacts__links li { min-height: 44px; display: flex; align-items: center; flex-wrap: wrap; gap: 0 var(--s-1); }
+  .contacts__phones .small { color: var(--color-text-muted); }
+
+  .contacts__vin { align-self: start; background: var(--color-surface); padding: var(--s-4) var(--s-3); border-radius: var(--radius); display: grid; gap: var(--s-2); }
+  .contacts__ticks { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); gap: 4px; }
+  .contacts__ticks span { height: 24px; border-radius: 2px; background: var(--color-bg); border: 1px solid var(--color-line-ui); }
+  .contacts__ticks span:nth-child(3), .contacts__ticks span:nth-child(9) { margin-right: 4px; }
+  .contacts__vin-title { font: var(--fw-semi) var(--fs-h3)/1.3 var(--font-display); }
+  .contacts__vin .btn { padding-inline: var(--s-2); }
+  @media (max-width: 767px) { .contacts__vin { padding: var(--s-3) var(--s-2); } }
+  .contacts__vin-note { color: var(--color-text-muted); }
+  @media (min-width: 768px) {
+    .contacts__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+  }
+  @media (min-width: 1200px) {
+    .contacts__main { grid-column: 1 / span 11; }
+    .contacts__vin { grid-column: 12 / -1; margin-top: calc(var(--fs-h2) * 1.15 + var(--s-4)); }
+  }
+</style>

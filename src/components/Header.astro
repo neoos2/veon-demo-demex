@@ -1,0 +1,174 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import FutureLink from "./FutureLink.astro";
+import { mainPhone, phones, email, FUTURE_NOTE } from "../data/site";
+
+const nav = [
+  { href: "#catalog", label: "Каталог" },
+  { href: "#vin", label: "Підбір за VIN" },
+  { href: "#terms", label: "Доставка і оплата" },
+  { href: "#wholesale", label: "Оптовим покупцям", rec: "R-004,R-015" },
+  { href: "#contacts", label: "Контакти" },
+];
+const searchNote = "Пошук за артикулом і назвою запрацює в повній версії сайту";
+const ruNote = "Російська версія з'явиться в повній версії сайту";
+---
+<header class="site-header">
+  <div class="container header__row">
+    <Logo />
+
+    <nav class="header__nav" aria-label="Основна навігація" data-rec="R-004">
+      <ul>
+        {nav.map((i) => <li><a href={i.href} data-rec={i.rec}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="header__search" data-rec="R-007">
+      <FutureLink note={searchNote} class="search-stub">
+        <Icon name="search" />
+        <span class="search-stub__text">Артикул, номер деталі або назва</span>
+      </FutureLink>
+    </div>
+
+    <div class="header__phone" data-rec="R-005">
+      <a class="header__tel tel" href={`tel:${mainPhone.tel}`}>{mainPhone.display}</a>
+      <span class="header__hours">пн–пт 9–19, сб 9–18</span>
+    </div>
+
+    <div class="lang" data-rec="R-008,R-104">
+      <span class="lang__current" aria-current="true" lang="uk">UA</span>
+      <span class="lang__sep" aria-hidden="true">/</span>
+      <FutureLink note={ruNote} class="lang__ru"><span lang="ru">RU</span></FutureLink>
+    </div>
+
+    <a class="header__call" href={`tel:${mainPhone.tel}`} aria-label={`Подзвонити ${mainPhone.display}`} data-rec="R-016">
+      <Icon name="phone" />
+    </a>
+
+    <details class="menu" data-menu>
+      <summary class="menu__toggle" aria-label="Меню">
+        <Icon name="menu" class="menu__open" />
+        <Icon name="close" class="menu__close" />
+      </summary>
+      <div class="menu__panel">
+        <nav aria-label="Меню сайту">
+          <ul class="menu__anchors">
+            {nav.map((i) => <li><a href={i.href} data-rec={i.rec}>{i.label}</a></li>)}
+          </ul>
+        </nav>
+        <ul class="menu__future">
+          <li><FutureLink note={searchNote}>Пошук за артикулом</FutureLink></li>
+          <li><FutureLink note={FUTURE_NOTE}>Увесь каталог</FutureLink></li>
+          <li><FutureLink note={FUTURE_NOTE}>Статті та огляди</FutureLink></li>
+          <li><FutureLink note={FUTURE_NOTE}>Про нас</FutureLink></li>
+          <li><FutureLink note={ruNote}>Російська версія</FutureLink></li>
+        </ul>
+        <div class="menu__contacts">
+          <ul>
+            {phones.map((p) => <li><a class="tel link" href={`tel:${p.tel}`}>{p.display}</a>{p.label && <span class="small"> {p.label.toLowerCase()}</span>}</li>)}
+          </ul>
+          <a class="link" href={`mailto:${email}`}>{email}</a>
+          <p class="small">Пн–Пт 09:00–19:00, Сб 09:00–18:00</p>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>("[data-menu]");
+  if (menu) {
+    menu.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      if (t.closest(".menu__panel a")) menu.open = false;
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menu.open) {
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      }
+    });
+    const mq = window.matchMedia("(min-width: 1200px)");
+    mq.addEventListener("change", () => { if (mq.matches) menu.open = false; });
+  }
+</script>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--color-bg); border-bottom: 1px solid var(--color-line); }
+  .header__row { display: flex; align-items: center; gap: var(--s-2); min-height: var(--header-h); }
+  .header__row > :global(.logo) { margin-right: auto; }
+
+  .header__nav, .header__search, .lang, .header__phone { display: none; }
+
+  .header__nav ul { display: flex; gap: 4px; }
+  .header__nav a, .menu__anchors a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; white-space: nowrap; border-radius: var(--radius);
+    color: var(--color-text); text-decoration: none; font-weight: var(--fw-semi); font-size: 0.9375rem;
+    transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  .header__nav a:hover { color: var(--color-accent-strong); background: var(--color-surface); }
+
+  .header__search :global(.search-stub) {
+    display: flex; align-items: center; gap: 8px; width: max-content; min-height: 44px; padding: 0 12px;
+    border: 1px solid var(--color-line-ui); border-radius: var(--radius); color: var(--color-text-muted);
+    font-size: 0.875rem; text-decoration: none; background: var(--color-bg);
+    transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .header__search :global(.search-stub:hover) { border-color: var(--color-ink); color: var(--color-text); }
+  .header__search :global(.search-stub .icon) { width: 18px; height: 18px; flex: none; }
+  .search-stub__text { white-space: nowrap; }
+
+  .header__phone { flex-direction: column; align-items: flex-end; line-height: 1.2; }
+  .header__tel { font-weight: var(--fw-semi); color: var(--color-text); text-decoration: none; font-size: 1.0625rem; padding: 2px 0; }
+  .header__tel:hover { color: var(--color-accent-strong); }
+  .header__hours { font-size: 0.8125rem; color: var(--color-text-muted); white-space: nowrap; }
+
+  .lang { align-items: center; gap: 4px; font-size: 0.875rem; font-weight: var(--fw-semi); }
+  .lang__current { color: var(--color-accent); }
+  .lang__sep { color: var(--color-line-ui); }
+  .lang :global(.lang__ru) { min-height: 44px; padding: 0 4px; color: var(--color-text-muted); }
+
+  .header__call, .menu__toggle {
+    display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+    border-radius: var(--radius); color: var(--color-ink); text-decoration: none; cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+  .header__call:hover, .menu__toggle:hover { background: var(--color-surface); }
+  .header__call { color: var(--color-accent); }
+
+  .menu__toggle { list-style: none; }
+  .menu__toggle::-webkit-details-marker { display: none; }
+  .menu :global(.menu__close) { display: none; }
+  .menu[open] :global(.menu__open) { display: none; }
+  .menu[open] :global(.menu__close) { display: block; }
+  .menu__panel {
+    position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100svh - var(--header-h));
+    overflow-y: auto; background: var(--color-bg); border-bottom: 1px solid var(--color-line);
+    padding: var(--s-3) var(--page-pad) var(--s-4); display: grid; gap: var(--s-3);
+  }
+  .menu__anchors a { font-family: var(--font-display); font-size: 1.375rem; padding: 0; }
+  .menu__anchors a:hover { color: var(--color-accent-strong); }
+  .menu__future { display: grid; gap: 4px; }
+  .menu__future :global(.future-link) { min-height: 44px; color: var(--color-text-muted); }
+  .menu__contacts { display: grid; gap: var(--s-1); padding-top: var(--s-2); border-top: 1px solid var(--color-line); }
+  .menu__contacts ul { display: grid; gap: 4px; }
+  .menu__contacts a { display: inline-flex; align-items: center; min-height: 44px; }
+  .menu__contacts .small { color: var(--color-text-muted); }
+
+  @media (min-width: 768px) {
+    .header__phone { display: flex; }
+    .header__call { display: none; }
+    .menu__panel { padding-inline: max(var(--page-pad), (100% - var(--container)) / 2); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1200px) {
+    .header__nav, .lang { display: flex; }
+    .header__search { display: block; }
+    .menu { display: none; }
+    .header__row { gap: var(--s-3); }
+  }
+  @media (min-width: 1200px) and (max-width: 1359px) {
+    .header__search :global(.search-stub) { width: 44px; padding: 0; justify-content: center; }
+    .search-stub__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  }
+</style>

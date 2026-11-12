@@ -1,0 +1,59 @@
+---
+import { wholesalePhone } from "../../data/site";
+const start = ["Зв'яжіться з менеджером", "Опишіть потреби", "Погодьте умови", "Замовляйте"];
+const prep = ["назву компанії або формат роботи", "місто і спосіб доставки", "товарні групи", "марки авто", "телефон"];
+---
+<section id="wholesale" class="section wholesale on-dark" data-rec="R-015,R-003">
+  <div class="container grid wholesale__grid">
+    <div class="wholesale__main">
+      <h2>Оптовим покупцям і СТО</h2>
+      <p class="wholesale__num" data-reveal><span class="wholesale__digits">6&nbsp;000&nbsp;000+</span></p>
+      <p class="wholesale__num-text">позицій для СТО, автомагазинів, майстрів і автопарків</p>
+      <p class="wholesale__text">Умови обговорюємо індивідуально, через менеджера. Підбір за VIN, актуальна наявність, ціни й строки, доставка по Україні.</p>
+    </div>
+
+    <div class="wholesale__side">
+      <h3>Як почати</h3>
+      <ol class="wholesale__steps">
+        {start.map((s, i) => <li><span class="wholesale__n">{i + 1}</span>{s}</li>)}
+      </ol>
+      <h3 class="wholesale__prep-title">Що підготувати</h3>
+      <p class="wholesale__prep">{prep.join(", ")}.</p>
+      <div class="wholesale__call">
+        <p class="small">Менеджер з опту</p>
+        <a class="wholesale__tel tel" href={`tel:${wholesalePhone.tel}`}>{wholesalePhone.display}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wholesale { background: var(--color-ink); color: var(--color-white); }
+  .wholesale__grid { row-gap: var(--s-5); }
+  .wholesale__main, .wholesale__side { grid-column: 1 / -1; min-width: 0; }
+  .wholesale__num { margin-top: var(--s-4); }
+  .wholesale__digits { display: inline-block; font: var(--fw-semi) clamp(3rem, 1.4rem + 6.4vw, 7.5rem)/1 var(--font-display); color: var(--color-sky); overflow-wrap: anywhere; }
+  .wholesale__num-text { margin-top: var(--s-1); font: var(--fw-semi) var(--fs-h3)/1.25 var(--font-display); max-width: 24ch; }
+  .wholesale__text { margin-top: var(--s-3); color: var(--color-line); max-width: 48ch; }
+  .wholesale__side h3 { font-size: var(--fs-h3); }
+  .wholesale__steps { margin-top: var(--s-2); display: grid; border-top: 1px solid var(--color-line-ui); }
+  .wholesale__steps li { display: flex; gap: var(--s-2); align-items: baseline; padding-block: 12px; border-bottom: 1px solid var(--color-line-ui); }
+  .wholesale__n { font-family: var(--font-display); color: var(--color-sky); min-width: 1.5em; }
+  .wholesale__prep-title { margin-top: var(--s-4); }
+  .wholesale__prep { margin-top: var(--s-1); color: var(--color-line); }
+  .wholesale__call { margin-top: var(--s-4); }
+  .wholesale__call .small { color: var(--color-line); }
+  .wholesale__tel { display: inline-flex; align-items: center; min-height: 48px; font: var(--fw-semi) var(--fs-h2)/1.1 var(--font-display); color: var(--color-white); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.18em; text-decoration-color: var(--color-sky); transition: color var(--dur-fast) var(--ease-out); }
+  .wholesale__tel:hover { color: var(--color-sky); }
+  @media (min-width: 768px) {
+    .wholesale__main { grid-column: 1 / span 5; }
+    .wholesale__side { grid-column: 6 / -1; }
+  }
+  @media (min-width: 1200px) {
+    .wholesale__main { grid-column: 1 / span 9; }
+    .wholesale__side { grid-column: 11 / -1; }
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .wholesale__main, .wholesale__side { grid-column: 1 / -1; }
+  }
+</style>

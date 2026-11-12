@@ -1,0 +1,83 @@
+/* Hallmark · shape: brand-field hero with live 17-cell VIN input · process · index tabs · facts · dark band · quote · faq · contacts · genre: modern-minimal · theme: custom · job: buy · idea: "17 знаків VIN — і деталь знайдена" · vibe: "точний, технічний, фірмово-фіолетовий, без вітрини"
+ * paper: #FFFFFF · accent: #941D80 · display: Tektur · body: Manrope · hero: H1 і живе поле VIN із 17 клітинок на фіолетовому полі бренду · nav: біла шапка, 5 якорів, телефон повністю · footer: світлий, колонки FutureLink · imagery: none · signature: поле VIN із 17 клітинок
+ * axes: light/geometric-sans (techno)/chromatic-magenta · surface: absolute · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E (no photos of the client), answered with type scale, the real VIN scheme and colour fields instead of stock */
+/* Hallmark · waive 7b · paper and cells #FFFFFF · approved concept palette §8.2 (#FFFFFF is the client's site paper and the VIN cell colour; priority 2 in docs/process/hallmark.md) */
+/* Hallmark · waive 23 · accent fills the 1280x800 first screen · posture committed in concept §5: brand #941D80 is the field of the first screen only (and the phone bar); every other band is white, lilac or ink */
+/* Hallmark · answer 42 · footer is the light lilac band of FutureLink columns from concept §5 (no giant wordmark, no dark slab); 4 columns = 2 future-page groups + contacts + socials, all real */
+/* Hallmark · answer F4 · two filled recipes are one primary per surface: white on the brand field (hero, phone bar), brand on light sections; never both on one surface (concept §8.11) */
+/* Line 1 of this file is the Hallmark stamp (docs/process/hallmark.md); waivers go right below it. */
+/* Client design tokens: from design/concept.md (veon-concept colors, fonts; §8.2–8.4). */
+:root {
+  /* palette — concept §8.2 */
+  --color-brand: #941D80;
+  --color-brand-dark: #6F1460;
+  --color-ink: #151C38;
+  --color-sky: #32A3D4;
+  --color-white: #FFFFFF;
+  --color-lilac: #F3F1F6;
+  --color-muted: #565B73;
+  --color-line-ui: #7C778D;
+  --color-line: #D8D4E0;
+  --color-on-brand-soft: #E7C9DF;
+
+  /* roles (names of the demo base) */
+  --color-bg: var(--color-white);
+  --color-surface: var(--color-lilac);
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-muted);
+  --color-accent: var(--color-brand);
+  --color-accent-strong: var(--color-brand-dark);
+  --color-accent-ink: var(--color-white);
+  --color-focus: var(--color-ink);
+  --color-focus-inverse: var(--color-white);
+
+  /* type — concept §8.3 (self-hosted, fonts.css) */
+  --font-display: "Tektur", "Tektur Fallback", system-ui, sans-serif;
+  --font-body: "Manrope", "Manrope Fallback", system-ui, sans-serif;
+  --fs-h1: clamp(1.75rem, 0.6rem + 6.5vw, 2.25rem);
+  --fs-h2: clamp(1.75rem, 1.2rem + 1.9vw, 2.75rem);
+  --fs-fact: clamp(1.375rem, 0.75rem + 2.3vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.45vw, 1.5rem);
+  --fs-index: clamp(1.375rem, 0.9rem + 1.3vw, 2.125rem);
+  --fs-body: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --lh-display: 1.05;
+  --lh-h2: 1.15;
+  --lh-body: 1.55;
+  --fw-regular: 400;
+  --fw-semi: 600;
+  --fw-bold: 700;
+
+  /* grid — concept §8.4: 17 / 8 / 4 columns */
+  --container: 1360px;
+  --gutter: 16px;
+  --cols: 4;
+  --page-pad: 20px;
+  --space: var(--page-pad);
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 40px;
+  --s-5: 64px;
+  --s-6: 104px;
+  --section-pad: var(--s-5);
+  --radius: 4px;
+  --tap: 48px;
+  --header-h: 56px;
+  --bar-h: 64px;
+
+  /* motion — concept §8.7 */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 500ms;
+  --dur-fast: 180ms;
+  --dur-cell: 300ms;
+  --dur-tab: 240ms;
+}
+
+@media (min-width: 768px) {
+  :root { --cols: 8; --page-pad: 32px; --header-h: 72px; --bar-h: 0px; --fs-h1: clamp(2.125rem, 1.1rem + 3.6vw, 4.5rem); }
+}
+@media (min-width: 1200px) {
+  :root { --cols: 17; --page-pad: 40px; --section-pad: var(--s-6); }
+}

@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import VinProcess from "../components/sections/VinProcess.astro";
+import Catalog from "../components/sections/Catalog.astro";
+import Terms from "../components/sections/Terms.astro";
+import Wholesale from "../components/sections/Wholesale.astro";
+import About from "../components/sections/About.astro";
+import Faq from "../components/sections/Faq.astro";
+import Contacts from "../components/sections/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+import { faq } from "../data/faq";
+import { phones, email, address } from "../data/site";
+
+const title = "Автозапчастини в Києві з підбором за VIN — DEMEX.ua";
+const description = "Інтернет-магазин автозапчастин DEMEX.ua: 6 000 000+ позицій, оригінал і аналоги, підбір за VIN. Самовивіз у Києві безкоштовно, Нова Пошта по Україні.";
+
+// Structured data (concept §8.6). No URL of the current site: the demo never points to it.
+const store = {
+  "@context": "https://schema.org",
+  "@type": "AutoPartsStore",
+  name: "DEMEX.ua",
+  telephone: phones.map((p) => p.tel),
+  email,
+  address: { "@type": "PostalAddress", streetAddress: address.street, addressLocality: address.city, postalCode: address.postal, addressCountry: "UA" },
+  openingHours: ["Mo-Fr 09:00-19:00", "Sa 09:00-18:00"],
+  foundingDate: "2018",
+};
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(store)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+  <Header slot="header" />
+  <Hero />
+  <VinProcess />
+  <Catalog />
+  <Terms />
+  <Wholesale />
+  <About />
+  <Faq />
+  <Contacts />
+  <Fragment slot="footer">
+    <Footer />
+    <MobileBar />
+  </Fragment>
+</Base>

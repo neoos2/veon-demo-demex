@@ -1,0 +1,12 @@
+---
+// Typeset wordmark (the original logo file is not available yet — a client decision, concept §5 «Изображения»).
+interface Props { class?: string; }
+const { class: cls } = Astro.props;
+---
+<a class:list={["logo", cls]} href="#top" aria-label="DEMEX.ua — на початок сторінки"><span class="logo__name">DEMEX</span><span class="logo__tld">.ua</span></a>
+
+<style>
+  .logo { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: 1.5rem; line-height: 1; text-decoration: none; color: var(--color-ink); display: inline-flex; align-items: baseline; min-height: 44px; align-items: center; white-space: nowrap; }
+  .logo__tld { color: var(--color-brand); }
+  @media (min-width: 768px) { .logo { font-size: 1.75rem; } }
+</style>

@@ -1,0 +1,39 @@
+---
+const facts = [
+  { big: "З 2018 року", text: "продаємо автозапчастини офлайн у Києві та онлайн" },
+  { big: "Київ", text: "пункт самовивозу на бульв. Верховної Ради, 33/1" },
+  { big: "Оригінал і аналоги", text: "оригінал VAG, GM; аналоги VALEO, SACHS, KYB, DELPHI, TOPRAN, WIX, PURFLUX, JAKOPARTS, AUTOFREN, BGA; оливи KROON OIL, ELF, WOLF; акумулятори EXIDE, YUASA" },
+];
+---
+<section id="about" class="section about" data-rec="R-003">
+  <div class="container grid about__grid">
+    <h2 class="about__title">Про DEMEX</h2>
+    <figure class="about__quote">
+      <blockquote><p>«Не просто продати запчастину, а допомогти вибрати правильну деталь без зайвих повернень.»</p></blockquote>
+      <figcaption>Так DEMEX формулює своє головне завдання</figcaption>
+    </figure>
+    <ul class="about__facts">
+      {facts.map((f) => <li><p class="about__big">{f.big}</p><p class="about__text">{f.text}</p></li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about__grid { row-gap: var(--s-4); }
+  .about__title, .about__quote, .about__facts { grid-column: 1 / -1; min-width: 0; }
+  .about__title { font-size: var(--fs-h3); color: var(--color-text-muted); font-family: var(--font-body); }
+  .about__quote blockquote p { font: var(--fw-semi) var(--fs-h2)/1.2 var(--font-display); max-width: 28ch; overflow-wrap: break-word; }
+  .about__quote figcaption { margin-top: var(--s-2); color: var(--color-text-muted); font-size: var(--fs-small); }
+  .about__facts { display: grid; gap: var(--s-3); }
+  .about__facts li { border-top: 2px solid var(--color-accent); padding-top: var(--s-2); min-width: 0; }
+  .about__big { font: var(--fw-semi) var(--fs-h3)/1.2 var(--font-display); }
+  .about__text { margin-top: var(--s-1); color: var(--color-text-muted); }
+  @media (min-width: 768px) {
+    .about__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+  }
+  @media (min-width: 1200px) {
+    .about__title { grid-column: 1 / span 6; }
+    .about__quote { grid-column: 1 / span 14; }
+    .about__facts { grid-template-columns: 5fr 4fr 8fr; }
+  }
+</style>

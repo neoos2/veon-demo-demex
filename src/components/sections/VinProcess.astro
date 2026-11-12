@@ -1,0 +1,75 @@
+---
+import Icon from "../Icon.astro";
+import { mainPhone, viber, vinMailto } from "../../data/site";
+const checks = ["застосовність", "наявність", "ціна", "строки"];
+---
+<section id="vin" class="section section--surface vinp" data-rec="R-003">
+  <div class="container grid">
+    <div class="section__head vinp__head">
+      <h2>Що відбувається після того, як ви надіслали VIN</h2>
+      <h3 class="vinp__prep-title">Що підготувати</h3>
+      <ul class="vinp__prep">
+        <li>VIN-код авто, 17 знаків</li>
+        <li>марку, модель і рік</li>
+        <li>номер старої деталі, якщо є</li>
+        <li>телефон для зв'язку</li>
+      </ul>
+    </div>
+
+    <ol class="section__body vinp__steps">
+      <li class="step">
+        <span class="step__n">1</span>
+        <div><h3>Запит</h3><p>Ви надсилаєте VIN, артикул або назву деталі.</p></div>
+      </li>
+      <li class="step step--main">
+        <span class="step__n">2</span>
+        <div>
+          <h3>Перевірка менеджером</h3>
+          <p>У однієї моделі бувають різні двигуни, гальма, підвіска і комплектація, тому менеджер звіряє деталь саме з вашим авто.</p>
+          <ul class="step__checks" aria-label="Що перевіряє менеджер">
+            {checks.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step__n">3</span>
+        <div><h3>Узгодження</h3><p>Погоджуємо позиції, доставку й оплату. Платите після підтвердження.</p></div>
+      </li>
+      <li class="step">
+        <span class="step__n">4</span>
+        <div><h3>Отримання</h3><p>Самовивіз у Києві, кур'єр Києвом або Нова Пошта.</p></div>
+      </li>
+    </ol>
+
+    <div class="section__body vinp__channels">
+      <a class="btn btn--brand" href={vinMailto()} data-vin-send><Icon name="mail" />Надіслати листом</a>
+      <a class="link tel" href={`tel:${mainPhone.tel}`}>Подзвонити {mainPhone.display}</a>
+      <a class="link" href={viber.href} rel="noopener" target="_blank">{viber.label}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vinp .grid { row-gap: var(--s-4); }
+  .vinp__prep-title { margin-top: var(--s-4); font-size: var(--fs-body); font-family: var(--font-body); }
+  .vinp__prep { margin-top: var(--s-2); display: grid; gap: var(--s-1); }
+  .vinp__prep li { padding-left: var(--s-3); position: relative; }
+  .vinp__prep li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 12px; height: 2px; background: var(--color-accent); }
+
+  .vinp__steps { display: grid; gap: 0; border-top: 1px solid var(--color-line); }
+  .step { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--s-2); padding-block: var(--s-3); border-bottom: 1px solid var(--color-line); }
+  .step__n { font: var(--fw-semi) var(--fs-h3)/1.25 var(--font-display); color: var(--color-accent); }
+  .step p { margin-top: var(--s-1); color: var(--color-text-muted); max-width: 52ch; }
+  .step--main { padding-block: var(--s-4); }
+  .step--main h3 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
+  .step__checks { margin-top: var(--s-3); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2) var(--s-3); }
+  .step__checks li { font: var(--fw-semi) clamp(1.25rem, 0.9rem + 1vw, 2rem)/1.1 var(--font-display); color: var(--color-accent-strong); padding-top: var(--s-1); border-top: 2px solid var(--color-accent); overflow-wrap: break-word; min-width: 0; }
+
+  .vinp__channels { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+  .vinp__channels .link { min-height: 44px; display: inline-flex; align-items: center; font-weight: var(--fw-semi); }
+  @media (max-width: 767px) { .vinp__channels .btn { width: 100%; } }
+  @media (min-width: 1200px) {
+    .vinp__head { grid-row: span 2; }
+    .step { grid-template-columns: 64px minmax(0, 1fr); }
+  }
+</style>

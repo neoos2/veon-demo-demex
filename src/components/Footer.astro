@@ -1,0 +1,59 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Logo from "./Logo.astro";
+import { FUTURE_NOTE, mainPhone, email, socials, address } from "../data/site";
+const buyers = ["Каталог запчастин", "Підбір за маркою", "Запит по VIN", "Доставка і оплата", "Гарантія і повернення", "Статус замовлення"];
+const company = ["Про нас", "Оптовим покупцям", "Постачальникам", "Вакансії", "Статті та огляди", "Політика конфіденційності"];
+---
+<footer class="footer">
+  <div class="container grid footer__grid">
+    <div class="footer__brand">
+      <Logo />
+      <p class="small">Інтернет-магазин автозапчастин для всіх марок. Київ і доставка по Україні.</p>
+    </div>
+    <nav class="footer__col" aria-label="Покупцям">
+      <h2 class="footer__h">Покупцям</h2>
+      <ul>{buyers.map((b) => <li><FutureLink note={FUTURE_NOTE}>{b}</FutureLink></li>)}</ul>
+    </nav>
+    <nav class="footer__col" aria-label="Компанія">
+      <h2 class="footer__h">Компанія</h2>
+      <ul>{company.map((b) => <li><FutureLink note={FUTURE_NOTE}>{b}</FutureLink></li>)}</ul>
+    </nav>
+    <div class="footer__col footer__col--wide">
+      <h2 class="footer__h">Зв'язок</h2>
+      <ul>
+        <li><a class="link tel" href={`tel:${mainPhone.tel}`}>{mainPhone.display}</a></li>
+        <li><a class="link" href={`mailto:${email}`}>{email}</a></li>
+        <li class="footer__addr">{address.city}, {address.street}</li>
+        <li><a class="link" href={address.map} target="_blank" rel="noopener">Відкрити на мапі</a></li>
+      </ul>
+    </div>
+    <div class="footer__col footer__col--wide">
+      <h2 class="footer__h">Ми в мережах</h2>
+      <ul>{socials.map((s) => <li><a class="link" href={s.href} target="_blank" rel="noopener">{s.label}</a></li>)}</ul>
+    </div>
+    <p class="footer__copy small">© 2018–2026 DEMEX.ua</p>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--color-surface); padding-block: var(--s-5) var(--s-4); border-top: 1px solid var(--color-line); }
+  .footer__grid { row-gap: var(--s-4); }
+  .footer__brand, .footer__col, .footer__copy { grid-column: span 2; min-width: 0; }
+  .footer__brand { grid-column: 1 / -1; display: grid; gap: var(--s-1); justify-items: start; }
+  .footer__brand .small { color: var(--color-text-muted); max-width: 32ch; }
+  .footer__h { font: var(--fw-semi) var(--fs-small)/1.3 var(--font-body); color: var(--color-text-muted); margin-bottom: var(--s-1); }
+  .footer__col ul { display: grid; }
+  .footer__col li { min-height: 40px; display: flex; align-items: center; font-size: 0.9375rem; }
+  .footer__col :global(.future-link) { min-height: 40px; }
+  .footer__addr { padding-block: 8px; color: var(--color-text-muted); }
+  .footer__copy { grid-column: 1 / -1; color: var(--color-text-muted); padding-top: var(--s-3); border-top: 1px solid var(--color-line); }
+  @media (max-width: 359px) { .footer__col { grid-column: 1 / -1; } }
+  @media (max-width: 767px) { .footer__col--wide { grid-column: 1 / -1; } }
+  @media (min-width: 768px) and (max-width: 1199px) { .footer__col--wide { grid-column: span 4; } }
+  @media (min-width: 1200px) {
+    .footer__brand { grid-column: 1 / span 4; }
+    .footer__col:nth-of-type(1) { grid-column: 6 / span 3; }
+    .footer__col { grid-column: span 3; }
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import FutureLink from "../FutureLink.astro";
+import { FUTURE_NOTE, mainPhone } from "../../data/site";
+const delivery = [
+  { fact: "0 грн", title: "Самовивіз у Києві", text: "Бульв. Верховної Ради, 33/1. Перед приїздом зателефонуйте." },
+  { fact: "159 грн", title: "Кур'єр Києвом і передмістям", text: "Наступного дня, якщо деталь є на складі. Від 2500 грн — безкоштовно." },
+  { fact: "Нова Пошта", title: "По всій Україні", text: "Відділення, поштомат або кур'єр, за тарифами перевізника." },
+];
+---
+<section id="terms" class="section terms" data-rec="R-003">
+  <div class="container grid terms__grid">
+    <h2 class="terms__title">Доставка, оплата і повернення</h2>
+
+    <div class="terms__group terms__get">
+      <h3 class="terms__label">Отримання</h3>
+      <ul class="terms__list">
+        {delivery.map((d, i) => (
+          <li class="term" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            <p class="term__fact">{d.fact}</p>
+            <div><p class="term__title">{d.title}</p><p class="term__text">{d.text}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="terms__group terms__pay">
+      <h3 class="terms__label">Оплата</h3>
+      <p class="term__fact term__fact--words" data-reveal>Після підтвердження</p>
+      <p class="term__text">Платите, коли менеджер підтвердив замовлення: карткою Visa/Mastercard, через Приват24 або готівкою при самовивозі.</p>
+      <p class="term__text">Кузовні й великогабаритні деталі та замовлення до 200 грн — з частковою або повною передоплатою.</p>
+    </div>
+
+    <div class="terms__group terms__back">
+      <h3 class="terms__label">Повернення</h3>
+      <p class="term__fact" data-reveal style="--reveal-delay:80ms">14 днів</p>
+      <p class="term__text">Деталь, яку не встановлювали, у цілій упаковці, з документом про покупку. Перед відправленням зв'яжіться з менеджером: <a class="link tel" href={`tel:${mainPhone.tel}`}>{mainPhone.display}</a>.</p>
+    </div>
+
+    <div class="terms__more">
+      <FutureLink note={FUTURE_NOTE}>Усе про доставку й оплату</FutureLink>
+      <FutureLink note={FUTURE_NOTE}>Гарантія і повернення</FutureLink>
+    </div>
+  </div>
+</section>
+
+<style>
+  .terms__grid { row-gap: var(--s-4); }
+  .terms__title, .terms__group, .terms__more { grid-column: 1 / -1; min-width: 0; }
+  .terms__label { font: var(--fw-semi) var(--fs-small)/1.3 var(--font-body); color: var(--color-text-muted); padding-bottom: var(--s-1); border-bottom: 2px solid var(--color-ink); margin-bottom: var(--s-3); }
+  .terms__list { display: grid; gap: var(--s-4); }
+  .term { display: grid; gap: var(--s-1); }
+  .term__fact { font: var(--fw-semi) var(--fs-fact)/1.05 var(--font-display); color: var(--color-accent); overflow-wrap: break-word; min-width: 0; }
+  .term__fact--words { color: var(--color-accent-strong); font-size: clamp(1.375rem, 0.9rem + 1.1vw, 2rem); }
+  .term__title { font-weight: var(--fw-semi); }
+  .term__text { color: var(--color-text-muted); max-width: 44ch; }
+  .terms__group > .term__text { margin-top: var(--s-2); }
+  .terms__more { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+  .terms__more :global(.future-link) { min-height: 44px; font-weight: var(--fw-semi); }
+
+  @media (min-width: 768px) {
+    .terms__get { grid-column: 1 / -1; }
+    .terms__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+    .terms__pay { grid-column: 1 / span 4; }
+    .terms__back { grid-column: 5 / span 4; }
+  }
+  @media (min-width: 1200px) {
+    .terms__title { grid-column: 1 / span 9; }
+    .terms__get { grid-column: 1 / span 8; }
+    .terms__list { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+    .term { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gutter); align-items: baseline; padding-bottom: var(--s-3); border-bottom: 1px solid var(--color-line); }
+    .terms__pay { grid-column: 10 / span 4; }
+    .terms__back { grid-column: 14 / span 4; }
+  }
+</style>

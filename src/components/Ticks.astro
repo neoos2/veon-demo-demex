@@ -1,0 +1,13 @@
+---
+// Decorative 17-tick rule grouped 3 / 6 / 8 like a VIN (WMI / VDS / VIS): carries the «17 знаків» idea into calm sections.
+---
+<span class="ticks" aria-hidden="true">
+  {[3, 6, 8].map((n) => <span class="ticks__g">{Array.from({ length: n }, () => <span class="ticks__t"></span>)}</span>)}
+</span>
+
+<style>
+  .ticks { display: flex; gap: 12px; margin-bottom: var(--s-2); }
+  .ticks__g { display: flex; gap: 4px; }
+  .ticks__t { width: 2px; height: 12px; background: var(--color-accent); }
+  .ticks__g:not(:first-child) .ticks__t { background: var(--color-line-ui); }
+</style>
